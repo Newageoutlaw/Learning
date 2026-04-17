@@ -1,0 +1,58 @@
+powershell command - read input from user
+In PowerShell, you can read input from the user using the Read-Host cmdlet. Here's a basic example:
+
+
+$name = Read-Host "Enter your name"
+Write-Host "Hello, $name!"
+
+Details:
+Read-Host prompts the user for input.
+
+The input is stored in the variable (e.g., $name).
+
+You can use that variable later in your script.
+----------
+2.what is powershell function ?
+A PowerShell function is a reusable block of code that performs a specific task. Functions help you organize your code, reduce repetition, and make scripts more readable and maintainable.
+
+Basic Syntax of a Function in PowerShell:
+powershell
+Copy
+Edit
+function FunctionName {
+    [param(
+        [string]$Parameter1,
+        [int]$Parameter2
+    )]
+    
+    # Function logic goes here
+    Write-Host "Parameter1 is $Parameter1"
+    Write-Host "Parameter2 is $Parameter2"
+}
+
+Key Points:
+Functions can take parameters for flexibility.
+
+You can return values using return or just by outputting them.
+
+Functions can be placed in scripts or defined interactively in the console.
+
+--------------------------------------------------------------------
+In PowerShell, to write output from a function or script, you can use:
+
+Write-Output — sends objects down the pipeline (default output).
+
+Write-Host — writes directly to the console (just for display).
+
+ Output ko Text File mein Export karna:-
+"Hello, World!" | Out-File -FilePath "C:\temp\output.txt"
+--------------------------------------------------------------------------
+Q. How to write if-else condition.
+Basic if-else syntax:
+
+if (<condition>) {
+    # Code if condition is true
+} else {
+    # Code if condition is false
+}
+

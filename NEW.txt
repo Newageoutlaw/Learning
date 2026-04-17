@@ -1,0 +1,11 @@
+1. TROUBLESHOOTING - LINUX VM ---
+2. LINUX VM --DISK ATTACH OR DETACH MANGED DISK
+3. helm
+4.vmss/app service/ azure function /logic apps
+5.30% tej hogya kaise resume mea likh liye ho
+6.terraform code with variable
+7.optum question answer-done
+8.gitub action--done
+9-copy revision-
+10.60 days revision-
+11syslog splunk
