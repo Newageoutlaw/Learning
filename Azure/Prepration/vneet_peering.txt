@@ -59,4 +59,4 @@ By peering these VNets, resources in VNet A (like a web server) can communicate 
 1. **Cross-Subscription Peering**: VNet peering can be configured across subscriptions, but both subscriptions must be under the same Azure Active Directory tenant.
 2. **Transitive Peering**: VNet peering is not transitive. If you peer VNet A to VNet B, and VNet B to VNet C, traffic will not automatically flow from VNet A to VNet C. Each peering needs to be explicitly configured.
 
-Would you like guidance on setting this up, or help with specific scenarios or troubleshooting?
+“Yes, VNet peering is supported across different Azure tenants by configuring bidirectional peering with proper permissions and ensuring non-overlapping address spaces.”
