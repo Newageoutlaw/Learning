@@ -1,0 +1,20 @@
+Hello, my name is Dharmpal kumar singh, and I currently work as a Technical Lead  at Infinite computer solutions , specializing in deploying and managing cloud-based telecom infrastructure, on Microsoft Azure.
+
+In my role, I utilize Terraform for Infrastructure as Code (IaC), automating the deployment and management of critical Azure resources. One of the key projects I’ve worked on involved deploying Virtual Machines (VMs) in both frontend and backend configurations, where the frontend VMs handle user-facing requests and the backend VMs process and manage IMS services. To ensure a high-performing and secure architecture, I designed a Hub and Spoke model where the Hub acts as the central communication point, connecting multiple isolated Spokes for specific application environments.
+
+For load balancing, I use Azure Application Gateway in the frontend to efficiently manage and distribute web traffic to the VMs, while Internal Load Balancers handle traffic within the backend, ensuring high availability and fault tolerance across services. I also implemented Azure Front Door to provide global load balancing, enhancing the user experience with low latency and improved performance for global access.
+
+Security is a top priority, so I have integrated Azure Firewall to control and monitor traffic between the Hub and Spokes, ensuring that only authorized communication is allowed. Additionally, I use Azure Bastion for secure, seamless RDP/SSH access to the VMs without exposing them to the public internet.
+
+In terms of automation, I design and implement CI/CD pipelines using Azure DevOps, which streamlines the continuous integration and delivery of IMS applications across various environments. I also use Git/GitHub for version control, ensuring smooth collaboration and code management across development teams.
+
+For containerized applications,(POC) I leverage Azure Kubernetes Service (AKS), orchestrating IMS applications to ensure scalability and manageability. To monitor and troubleshoot the environment, I rely on Grafana and Prometheus for performance tracking, Grafana Loki for log aggregation, and NetAct for real-time monitoring and automated alerting.
+
+I also have strong expertise in Linux, Bash scripting, and using Draw.io for designing and documenting network architecture. In addition, I work with VSCode for development and Jira for project management, ensuring that all aspects of the deployment lifecycle are well-coordinated and efficient.
+
+With a comprehensive understanding of Azure networking, load balancing, DevOps practices, and secure cloud architectures, I am confident in my ability to build scalable, secure, and highly available cloud solutions."
+-------------------------------------------
+Day to day :-
+In my current role, I work closely with the Client, Solution Architects (SA), along with developers  teams to understand their requirements and provide necessary  supports such as provision the  infrastructure and Application, Maintaining CI/CD pipelines and providing and ensuring successful deployments in Azure environments.
+
+

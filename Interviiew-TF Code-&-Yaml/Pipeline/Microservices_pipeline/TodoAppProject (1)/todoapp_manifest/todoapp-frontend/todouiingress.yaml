@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todoui
+  labels:
+    name: todoui
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - host: todoui.akservices.tech
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: todoui
+            port: 
+              number: 80

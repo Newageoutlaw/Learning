@@ -1,0 +1,32 @@
+- What are the key components of an EKS cluster?  
+- How can you increase the node group size of an EKS cluster?  
+- If you enable SSH at the pod level but cannot communicate with the outside world, how do you troubleshoot the issue?  
+- What is the difference between RBAC (Role-Based Access Control) and IAM (Identity and Access Management)?  
+- How can you provide EKS access to multiple teams?  
+- What authentication methods are available for EKS?  
+
+- What is Azure Key Vault?  
+- How do you create an SSL certificate?  
+- How do you ensure security and compliance in a CI/CD pipeline?  
+
+- How do you implement CI/CD for a microservices-based application?  
+- How do you handle versioning and rollback in a CI/CD pipeline?  
+  
+- What is Terraform?  
+- What are Kubernetes clusters?  
+- What are Cron Jobs in Kubernetes, and how are they used?
+
+[10:41 PM, 1/30/2025] +91 97298 31915: How we use secret please write yaml for that
+[10:41 PM, 1/30/2025] +91 97298 31915: How we monitor azure resources
+[10:41 PM, 1/30/2025] +91 97298 31915: What azure service
+[10:41 PM, 1/30/2025] +91 97298 31915: How much tipe of azure azure services we used
+[10:41 PM, 1/30/2025] +91 97298 31915: How much type of compute we for application deployment
+[10:41 PM, 1/30/2025] +91 97298 31915: How configure Prometheus config for 1000 of pod or vm
+[10:41 PM, 1/30/2025] +91 97298 31915: How we take build from outer artifacts like frog
+[10:41 PM, 1/30/2025] +91 97298 31915: And how we use in pipeline
+[10:41 PM, 1/30/2025] +91 97298 31915: What is azure policy and how we used
+[10:41 PM, 1/30/2025] +91 97298 31915: Write terraform code 
+
+1 rg , 1 vnet and 10 number of subnet 
+
+Don't give multiple time value for subnet in tfvars

@@ -1,0 +1,19 @@
+Hi, my name is Sovan Mishra. I have over 15 years of experience, with more than 6+ years of relevant expertise in cloud and DevOps technologies.
+
+I have hands-on experience with tools and technologies like Terraform, Kubernetes, Docker, Azure DevOps, and Azure Cloud services. My primary responsibility is to design and build infrastructure, automate deployments, and ensure secure and scalable application delivery.
+
+I work with both Monolithic and Microservices-based applications. 
+
+For the infrastructure for both I am using the Terraform automation tool, in which we write high optimized code, for that we create root module and child module , in child module we are keeping the generic code and in root module we are calling the child module.
+
+Once code comes to ready, then we will push those code on azure repo. Then we create a yaml pipeline. The pipeline will be multi stage. before the pipeline need to create a service connection b/w Azure portal to ADO. Then we create a pipeline
+
+In the 1st stage we will integrate the tf sec or tf lint or checkovs tool to check the static quality of our code. Then in 2nd stage we will write the task for terraform init, in 3rd stage we will write the task for terraform plan, in 4th stage we will write the task for manual validation and in final stage we will write the task for terraform apply.
+
+Once infrastructure comes to ready we will configure NSG or firewall for network security,  we will configure RBAC for access implementation, for data protection we will configure private endpoint or service endpoint. We are using Application gateway for regional application and azure front door for global application.
+
+
+Now For Microservices, We are using AKS, for infrastructure we are also using Terraform to create infrastructure once Infrastructure comes to ready then, We are cloning the source code then we are creating different types of manifest files like Deployment.yaml, Service.yaml, Ingress.yaml.. etc
+
+After that we will write Dockerfile then we will create a pipeline, Before creating a pipeline we need to create a service connection b/w ADO to K8s, ADO to Docker, ADO to ACR, then we will create a pipeline, there will be 2 stages, 1st build and 2nd will be released/Deployment.
+In 1st stage we are also integrating Sonar tool to check the static quality of our code

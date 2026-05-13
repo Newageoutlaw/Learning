@@ -1,0 +1,24 @@
+trigger: none
+pool: akspool
+
+extends:
+  template: terraform-template.yml
+  parameters:
+    environment: 'Dev'
+    backendResourceGroup: 'dev_rg'
+    backendStorageAccount: 'devstorageaccount'
+    backendContainer: 'dev-container'
+    backendKey: 'dev-terraform.tf'
+    serviceConnection: 'dev-connection'
+
+
+
+######################################################################################
+Key Benefits of Using Templates:
+✅ Reusability → No need to duplicate pipeline logic for Dev and Prod.
+✅ Consistency → Ensures both environments follow the same process.
+✅ Easy Maintenance → Modify the template once, and changes reflect in all environments.
+
+This setup will allow your Dev and Prod pipelines to automatically 
+use the shared Terraform template while applying environment-specific configurations. 
+🚀 Let me know if you need any modifications! 😊

@@ -1,0 +1,74 @@
+*******coforge*******************
+1.hub spkoe model policy
+2.THREE TIER APPLICATION AZURE LANDING ZONE
+3.WHAT MORE COMPONENTS REQUIRED FOR LANDING ZONE
+4.HOW TO MAKE OUR DATABSE HIGHLY AVAILBLE 
+5.ONE DB IN ONE VNET OR AND OTHER IN OTHER VNET WITH APPLICATION OTHER SUBSCRIPTION HOW CAN WE ESTABLISH COMMUNICATION 
+6.SUPPOSE WE HAVE SERVICE IN ONE VNET AND SOME IN OTHER THEN HOW 
+7.azure devops describe
+8.sonarqube in azure devops integration process
+9.how to store artifacts in nexsus 
+10.devops pipeline stages implemented use case 
+11.tfsec tool /tflint use case
+12.application pipeline cicd process
+13.docker image creation process for application pipeline
+14.difference between run and cmd
+15.entry point in docker file
+16.diffrence betwween add and copy
+17.optimize image automatically , should i use add or copy
+18.arm template 
+19predefine template use case 
+20.write a terraform code create a vm and display a public ip (output block)
+21.backend ?
+22.how to restrict multiple people to write state file
+23.two resource created with terrraform two weeks ago , and noticed destroyed and recreated because of some raeson in which senario it will happen (terraform taint k alawa kya resaon ho skta vn delete and recreate
+24.life cycle block
+25blob strorage for state file then someone delete and donot have backup file . and we apply terraform apply 
+26.what happen when state file deleted and we fire apply 
+27.windows system process show cmd for powershell
+28.powershell script for storage check for window for memory usage
+29.alter and updatequery in sql
+30.list all the record upadte table from databse from sql query 
+31.git conflict ? how to resolve 
+32.git merge vs git  rebase
+
+33.data analytic pipeline? 
+34.link service & integration run time ?
+35.conflict while merging in git during pr raise
+36.VARIOUS KIND OF SERVICE IN KUBERNETES
+37.WHEN TO USE NODEPORT WHEN TO CLUSTER IP
+38.MANIFEST file for deployment 
+39.deployment startegy in kubernetes
+
+**********************EPAM***********************
+1.azure private endpoint ?
+2.how to set up ?
+3.private vs service endpoint?
+4.set up service for blob storage
+5.privte link service
+6.privatelink diffrent with private endpoint ?
+7.how to create privat elink
+8.Azure Well-Architected Framework - 5 Pillars
+9.applicatio gateway end to end components ?
+10.headers addition in while passing in backend
+11.routning methods in app gateway
+12.ap gw vs  traffic manager
+13.routhing method traffic manager'
+14.frontdoor routing method 
+15.app service ?
+16.azure functions ?
+17.call azure function.
+18.vnet integration azure function 
+19.Purpose of VNet Integration in Azure Functions
+20.aks cluster network config
+21.Taints & Tolerations in (Kubernetes)
+22.Types of Taints & Tolerations in Kubernetes (AKS)
+23.request & limit ?
+24.StatefulSet in Kubernetes
+25.terraform - what is dyanmic block ?
+26.Creating Azure VNet & Subnets Using Dynamic Blocks in Terraform
+27.Terraform data Source Block
+28.Terraform null_resource
+29.docker files creation ?
+30.Multi-Stage Dockerfile
+31.

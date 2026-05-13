@@ -1,0 +1,45 @@
+trigger: none
+pool: todoapp-agent-pool
+stages:
+  - stage: build
+    displayName: build app
+    jobs:
+    - job: buildjob
+      displayName: build job 
+      steps:
+      - task: NodeTool@0
+        inputs:
+          versionSource: 'spec'
+          versionSpec: '16.x' 
+      - task: Npm@1
+        inputs:
+          command: 'install'
+          workingDir: '$(System.DefaultWorkingDirectory)'
+      
+      - task: Npm@1
+        inputs:
+          command: 'custom'
+          workingDir: '$(System.DefaultWorkingDirectory)'
+          customCommand: 'run build'
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)'
+          artifact: 'ram_artifact'
+          publishLocation: 'pipeline'
+  - stage: deployment
+    displayName: application deployment 
+    jobs:
+    - job: appdeployjob
+      steps: 
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'ram_artifact'
+          downloadPath: '$(System.DefaultWorkingDirectory)/ramfolder'
+      - task: SSH@0
+        inputs:
+          sshEndpoint: 'ram-service_connection'
+          runOptions: 'commands'
+          commands: 'scp -r C:\Users\r3mishra\Desktop\DevOps_ Interview_Preparation\agent\todoappagent\_work\2\s/build/* root@192.168.1.13:/root/mishrafolder/'
+          readyTimeout: '20000'

@@ -1,0 +1,68 @@
+# This block defines when the pipeline should run
+trigger:                    
+  branches:                  # Only trigger the pipeline for the specified branches
+    include:
+      - main                 # Run the pipeline only when code is pushed to the 'main' branch
+ 
+# Set the default agent pool for running jobs unless overridden
+pool: dockervm-agent-pool    
+ 
+# Define all stages of the pipeline
+stages:                      
+ 
+  # Stage 1: Build and push Docker image to Azure Container Registry
+  - stage: imagebuild        
+    displayName: build image # Display name shown in Azure DevOps UI
+    jobs:
+    - job: ssh               # Define a job to perform the build tasks
+      steps:
+      - task: DockerInstaller@0         # Task to install a specific Docker version
+        inputs:
+          dockerVersion: '17.09.0-ce'   # Specify Docker version required for compatibility
+ 
+      - task: Docker@2                  # Task to build and push Docker image
+        inputs:
+          containerRegistry: 'acr-svc-coonection'    # Service connection to Azure Container Registry (ACR)
+          repository: 'deletetasktodo'               # Name of the container repository in ACR
+          command: 'buildAndPush'                    # Command to build and push the Docker image
+          Dockerfile: '**/Dockerfile'                # Look for Dockerfile in any subdirectory
+          tags: |                                    # Add tags to the Docker image
+            $(Build.BuildId)                         # Unique tag based on the build ID
+            latest                                   # 'latest' tag for easy reference
+ 
+  # Stage 2: Deploy to Kubernetes after approval
+  - stage: manifestdeploy                  
+    displayName: manifest deploy           # Display name for the deploy stage
+    dependsOn: imagebuild                  # This stage depends on the success of the imagebuild stage
+    condition: succeeded()                 # Run this stage only if the previous stage succeeded
+    jobs:                                  
+ 
+    # Job 1: Manual approval before deploying to Kubernetes
+    - job: manualApproval                  
+      displayName: 'Wait for manual approval'  # Name shown in the Azure DevOps UI
+      pool: server                         # Use server pool (agentless) for manual validation
+      timeoutInMinutes: 60                # Wait time for approval before timing out
+      steps:
+      - task: ManualValidation@0          # Built-in task that pauses pipeline for manual review
+        inputs:
+          instructions: 'Please review and approve before deployment.'  # Message shown to approver
+          onTimeout: 'reject'               # If no one responds within 60 mins, reject the job
+          notifyUsers: |                    # Email list to notify for manual approval
+            er.ramkrishna.mishra@yourdomain.com  # Replace with actual approver's email
+ 
+    # Job 2: Deploy to Kubernetes cluster after manual approval
+    - job: deployToK8s                    
+      displayName: 'Deploy to Kubernetes'  # Name shown in the Azure DevOps UI
+      dependsOn: manualApproval            # Run this job only after manual approval is completed
+      condition: succeeded()               # Ensure job runs only if approval was successful
+      pool: dockervm-agent-pool            # Use Docker-enabled agent pool for deployment
+      steps:
+      - task: KubernetesManifest@1         # Task to deploy Kubernetes manifest files
+        inputs:
+          action: 'deploy'                 # Specify the action to perform (deploy)
+          connectionType: 'kubernetesServiceConnection'  # Use service connection to access the cluster
+          kubernetesServiceConnection: 'k8s-svc-connection'  # Name of the K8s service connection
+          namespace: 'default'             # Target Kubernetes namespace for deployment
+          manifests: 'manifest/*.yaml'     # Path to the Kubernetes YAML manifest files
+          containers: 'devramacr3.azurecr.io/deletetasktodo:$(Build.BuildId)'  
+            # Image to be deployed in the Kubernetes cluster, tagged with build ID

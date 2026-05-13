@@ -1,0 +1,14 @@
+PWC interview questions. 
+
+1. What are multi-staging pipelines?
+2. What is an output block in Terraform?
+3. What is Azure DevOps?
+4. What are trunk branching strategies?
+5. What is TANT?
+6. What are provisioners in Terraform?
+7. What is the purpose of Terraform workspaces?
+8. What is the difference between for_each and count in Terraform?
+9. What are variables in pipelines?
+10. What are git push and git pull?
+11. How do you write a backend block in Terraform?
+12. What is a dependency in software and infrastructure?

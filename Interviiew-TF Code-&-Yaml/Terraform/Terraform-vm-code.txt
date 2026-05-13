@@ -1,0 +1,87 @@
+resource "azurerm_resource_group" "example-rg" {
+  name     = "my-rg1"
+  location = "central india"
+}
+resource "azurerm_virtual_network" "example-vnet" {
+  name                = "my-vnet1"
+  location            = azurerm_resource_group.example-rg.location
+  resource_group_name = azurerm_resource_group.example-rg.name
+  address_space       = ["10.0.0.0/16"]
+}
+resource "azurerm_subnet" "example-subnet" {
+  name                 = "my-subnet1"
+  resource_group_name  = azurerm_resource_group.example-rg.name
+  virtual_network_name = azurerm_virtual_network.example-vnet.name 
+  address_prefixes     = ["10.0.0.0/24"]                           
+}
+#Optional 
+resource "azurerm_public_ip" "pipblock" {
+  name = "pip1"
+  resource_group_name = zurerm_resource_group.example-rg.name
+  location = azurerm_resource_group.example-rg.location
+  allocation_method = "Dyanamic"
+ }
+resource "azurerm_network_interface" "example-nic" {
+  name                = "my-nic"
+  resource_group_name = azurerm_resource_group.example-rg.name
+  location            = azurerm_resource_group.example-rg.location
+
+  ip_configuration {
+    name                          = "my-nic-ip-config"
+    subnet_id                     = azurerm_subnet.example-subnet.id 
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.pipblock.id   # optional 
+  }
+}
+#Linux virtual Machine terraform code : 
+resource "azurerm_linux_virtual_machine" "example-vm" {
+  name                            = "myvm"
+  location                        = azurerm_resource_group.example-rg.location
+  resource_group_name             = azurerm_resource_group.example-rg.name
+  network_interface_ids           = [azurerm_network_interface.example-nic.id]
+  size                            = "Standard_DS1_v2" #  SKU for the VM
+  computer_name                   = "myvm"
+  admin_username                  = "myusername"
+  admin_password                  = "Ram@1234"
+  disable_password_authentication = false
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  source_image_reference {
+    publisher = "canonical"                    // kisne image ko publish kiya hai
+    offer     = "0001-com-ubuntu-server-jammy" // image server path 
+    sku       = "22_04-lts"                    // OS Image ka version hai 
+    version   = "latest"
+  }
+}
+#################################################################################
+Storage Account :
+_________________
+resource "azurerm_storage_account" "exapmple-stg" {
+  name= "my-stg-account"
+  resource_group_name = azurerm_resource_group.example-rg.name
+  location = azurerm_resource_group.example-rg.location
+  account_replication_type = "LRS"
+  account_tier = "Standard"   
+}
+resource "azurerm_storage_container" "exapmple-con" {
+  name= "my-stg-con"
+  storage_account_name = azurerm_storage_account.exapmple-stg.name // implecit dependency 
+}
+
+#########################################################################################
+Backend Code for terraform.tfstate file    
+Terraform {
+backend "azurerm"{
+storage_account_name= "mystg"
+resource_group_name= "Rg2"
+location= "east us"
+container_name= "mycon"
+key= "terraform.tfstate"
+}
+}
+
+provider "azurerm"{
+features{}
+subscription_id= "xyz"

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: addtask
+  labels:
+    name: addtask
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - host: add.akservices.tech
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: addtask
+            port: 
+              number: 80

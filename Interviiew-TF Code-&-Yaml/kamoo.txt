@@ -1,0 +1,20 @@
+Thanks for giving me the opportunity, myself  Kamal Kant and I work as a Senior Software Engineer at Infinite Computer Solutions, specializing in deploying and managing cloud-based telecom infrastructure — particularly IP Multimedia Subsystem (IMS) solutions — on Microsoft Azure.
+With deep expertise in Infrastructure as Code (IaC) using Terraform, I automate the provisioning and management of mission-critical Azure resources. One of my core responsibilities includes architecting and deploying Virtual Machines (VMs) for both frontend (user-facing) and backend (IMS core services) roles. To ensure scalability, security, and maintainability, I designed and implemented a Hub-and-Spoke architecture, where the Hub acts as a central network gateway for multiple isolated application environments in the Spokes.
+For traffic management, I utilize:
+•	Azure Application Gateway for efficient frontend web traffic distribution,
+•	Internal Load Balancers (ILBs) for backend service traffic,
+•	and Azure Front Door for global load balancing to ensure low-latency user experiences worldwide.
+Security is a core part of my architecture. I’ve implemented:
+•	Azure Firewall to inspect and control inter-VNet communication,
+•	and Azure Bastion to enable secure RDP/SSH access to VMs without exposing them to the public internet.
+
+For container-based workloads and microservices, I use Azure Kubernetes Service (AKS) to orchestrate and scale IMS applications. I monitor performance and logs using Grafana, Prometheus, and Grafana Loki, along with NetAct for real-time network insights and alerting.
+In terms of automation and DevOps, I design and maintain robust CI/CD pipelines in Azure DevOps, enabling smooth and consistent delivery of applications across environments. I also leverage Git/GitHub for version control and team collaboration.
+________________________________________
+Day-to-Day Responsibilities:
+On a daily basis, I collaborate with clients, solution architects, and development teams to:
+•	Understand infrastructure and deployment requirements,
+•	Provision and configure Azure resources and applications,
+•	Maintain and troubleshoot CI/CD pipelines,
+•	and ensure successful deployments and smooth operations in Azure environments.
+

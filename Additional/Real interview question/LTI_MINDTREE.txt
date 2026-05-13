@@ -1,0 +1,6 @@
+TI Mindtree interview questions :
+1 . What happened with your data if pod is deleted and you have already created PV for that.
+
+2.what are the 3 types of PVC
+
+3. Suppose in a bank application you have 2 container in one pod and 2 users are accessing the same application and they are on different container in the same pod. They have their own PV each. How you will manage and ensure the traffic flow consistency between them.

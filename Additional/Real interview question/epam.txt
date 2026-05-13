@@ -1,0 +1,42 @@
+EPAM Qus Todays
+interviewer Akshay 
+1-  what dependent resource required to create a VM 
+2-  What are the azure services 
+3- diff b.w loadbalancer or app gateway 
+4- what is traffic manager 
+5-  if you a vnet and 5 subnet all are full , but i want to create one more vm how it will possible 
+6- what are the use of bastion host or how we will configure 
+7- how we can connect with vm with bastion host 
+8- nsg adn asg 
+9 - if we have some ip and ports , for traffice so what i will do to pass the traffic through this 
+10- what type of storage in azure explain each 
+11- what is DR or what resource required to set the DR 
+12- what is acr 
+13- what is asr 
+14 - if there are multiple images push at acr so how k8 will take latest image 
+15- if we have a vm or client want to extend its size so how it will possiple or what config we need to change 
+16- what is service end point or how we will configure 
+17- What is private end point or how we will config explain E2E , or hows its diff from service end point 
+18-  how we can add another vm in avability set , what will be configuration for this  or what changes we need to do
+19- E2E flow of pipeline , including repo , git tools and everthing , 
+20- how we can create agent 
+21- git push and fatch 
+22- which deployment stratgy u are using in k8
+23- what is stateful and stateless set in k8
+24- what is pv and pvc 
+25- what is ingress controller 
+26- which monitoring tool u are using 
+27 how u will setup grafana and promitheous 
+28 - how we can set notification in monitoring tool
+29- what is sonarQube 
+30- how u will setup sonar Qube , its custom or any language based
+31 - diff b/w terraform and arm templete 
+32- what is statefile 
+33- which backend u are using for statefile 
+34- what are the workspace 
+35- what are the provisioner 
+36- what are the modules in terraform or how many types of modules explain in details 
+37- terraform storage account code likhwaya tha
+38- Pod ki yaml likhwayi thi 
+39 - then in pod why we are not using templete 
+40- where we will keep our image or from where k8 will take the image

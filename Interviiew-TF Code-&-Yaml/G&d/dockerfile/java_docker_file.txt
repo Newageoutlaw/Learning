@@ -1,0 +1,31 @@
+# ===== Stage 1: Build =====
+FROM maven:3.9.5-eclipse-temurin-17 AS builder   
+# Maven + JDK image to build Java project
+
+WORKDIR /app                                     
+# Set working directory inside container
+
+COPY . .                                         
+# Copy all source code into container
+
+RUN mvn clean package -DskipTests                
+# Build project & create JAR (tests skipped for speed)
+
+# ===== Stage 2: Run =====
+FROM openjdk:17-jdk-slim                         
+# Lightweight JDK runtime (smaller & faster)
+
+WORKDIR /app                                     
+# Working directory for runtime container
+
+COPY --from=builder /app/target/myapp.jar app.jar  
+# Copy only built JAR from builder stage
+
+EXPOSE 8080                                      
+# Expose port 8080 for external access
+
+ENV APP_ENV=production                           
+# Set environment variable (configurable runtime setting)
+
+ENTRYPOINT ["java", "-jar", "app.jar"]           
+# Start the Java application when container runs

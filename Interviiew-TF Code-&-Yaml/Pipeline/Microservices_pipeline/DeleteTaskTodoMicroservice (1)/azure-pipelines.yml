@@ -1,0 +1,17 @@
+trigger: none
+pool: dockervm-agent-pool
+stages:
+  - stage: buildimage
+    displayName: buld image 
+    jobs:
+    - job: 
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'acr-svc-coonection'
+          repository: 'deletetasktodo'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: |
+           $(Build.BuildId)
+           latest

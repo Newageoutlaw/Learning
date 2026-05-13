@@ -1,0 +1,52 @@
+# Stage 1: Build the React app 
+FROM node:16.17.0-alpine as build  # # Use lightweight Node.js image for building  
+# Set the working directory inside the container  
+WORKDIR /app
+# Copy package.json files for dependency installation  
+COPY package*.json ./
+# Install dependencies
+RUN npm install
+# # Copy the entire app source code 
+COPY . .
+# Build the React app (output stored in /app/build)
+RUN npm run build   
+
+# Stage 2: Create a lightweight production-ready image
+FROM nginx:alpine  # Use lightweight Nginx(middle Bare) image for serving static files 
+# Copy built files from stage1 to Nginx's default directory 
+COPY --from=build /app/build /usr/share/nginx/html
+# Expose port 80 for serving the application/or can say for incoming requests.  
+EXPOSE 80
+# Start Nginx in the foreground to keep the container running.
+CMD ["nginx", "-g", "daemon off;"]       // its default command to after container start, it can overridden 
+# Define a volume for persistent storage  
+VOLUME /app/data  # To create a mount point inside the container 
+                    that stores data persistently, even if the container is removed.
+
+Multi-stage build: Reduces final image size by separating build and runtime environments.
+
+#####################################################################
+RUN → Executes a command inside the image to make changes (e.g., RUN npm install).
+ADD → Copies files or compressed archives (tar/zip) into the container and extracts
+       them if needed (e.g., ADD myfile.tar /app/), URL also can use here .
+COPY → Simply copies files or folders into the container without extraction (e.g., COPY . /app/).
+CMD → Sets the default command that runs when the container starts, Use CMD as default commands that can be changed.
+      (e.g., CMD ["nginx", "-g", "daemon off;"]) 
+ENTRYPOINT: Always runs when the container starts. Use ENTRYPOINT when you want a fixed command to always run in the container.
+
+Multi-stage build: Reduces final image size by separating build and runtime environments.
+
+#################################################################################
+***Dockerfile to print "Hello, World!" when the container runs:
+
+# Use a lightweight base image
+FROM alpine  
+
+# Set the command to print "Hello, World!"
+CMD ["echo", "Hello, World!"]
+
+Steps to Run:
+Build the image → #docker build -t hello-world .
+Run the container → #docker run hello-world
+It will print:
+Hello, World!  

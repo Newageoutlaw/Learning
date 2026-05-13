@@ -1,0 +1,91 @@
+trigger: none
+pool: akspool
+
+stages:
+  - stage: terraform_installer_and_sca
+    displayName: Terraform Installer and Static Code Analysis
+    jobs: 
+      - job: terraform_installer
+        displayName: Terraform Installer
+        steps:
+          - task: TerraformInstaller@2
+            inputs:
+              terraformVersion: 'latest'
+
+      - job: sca_job 
+        displayName: Static Code Analysis Tool
+        dependsOn: terraform_installer
+        steps:
+          - task: tfsec@1
+            inputs:
+              version: 'v1.26.0'
+              dir: '$(System.DefaultWorkingDirectory)'
+
+  - stage: init_and_plan
+    displayName: Terraform Init and Plan
+    jobs:
+      - job: init_plan_job
+        displayName: Init and Plan Job
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Init"
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_Env'
+              backendServiceArm: 'akconnection1'
+              backendAzureRmResourceGroupName: 'akshay_rg'
+              backendAzureRmStorageAccountName: 'akservicesstorage'
+              backendAzureRmContainerName: 'aks'
+              backendAzureRmKey: 'terraform.tf'
+
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_Env'
+              environmentServiceNameAzureRM: 'akconnection1'
+
+  - stage: manual_validation_plan_and_apply
+    displayName: Manual Validation and Apply
+    jobs:
+      - job: manual_validation
+        displayName: Manual Validation
+        pool: server
+        steps:
+          - task: ManualValidation@1
+            inputs:
+              notifyUsers: 'er.ramkrishnamishra@gmail.com'
+              approvers: 'er.ramkrishnamishra@gmail.com'
+              
+      - job: plan_apply_job
+        displayName: Plan and Apply Job
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Init"
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_Env'
+              backendServiceArm: 'akconnection1'
+              backendAzureRmResourceGroupName: 'akshay_rg'
+              backendAzureRmStorageAccountName: 'akservicesstorage'
+              backendAzureRmContainerName: 'aks'
+              backendAzureRmKey: 'terraform.tf'
+              
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_Env'
+              environmentServiceNameAzureRM: 'akconnection1'
+
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Apply"
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Dev_Env'
+              environmentServiceNameAzureRM: 'akconnection1'

@@ -1,0 +1,15 @@
+# ===== Stage 1: Build =====
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build       # (1) Base SDK image for build
+LABEL maintainer="dharmpal.singh@example.com"        # (2) Metadata about image owner
+WORKDIR /src                                         # (3) Set working directory
+COPY *.csproj ./                                     # (4) Copy project file
+RUN dotnet restore                                   # (5) Restore dependencies
+COPY . .                                             # (6) Copy all source code
+RUN dotnet publish -c Release -o /app/publish        # Build & publish optimized output
+
+# ===== Stage 2: Run =====
+FROM mcr.microsoft.com/dotnet/aspnet:7.0             # (7) Final runtime image
+WORKDIR /app                                         
+COPY --from=build /app/publish .                     
+EXPOSE 80                                            
+ENTRYPOINT ["dotnet", "MyApp.dll"]

@@ -1,0 +1,89 @@
+parameters:
+  - name: environment
+    type: string
+  - name: backendResourceGroup
+    type: string
+  - name: backendStorageAccount
+    type: string
+  - name: backendContainer
+    type: string
+  - name: backendKey
+    type: string
+  - name: serviceConnection
+    type: string
+
+stages:
+  - stage: terraform_installer_and_sca
+    displayName: Terraform Installer and Static Code Analysis
+    jobs: 
+      - job: terraform_installer
+        displayName: Terraform Installer
+        steps:
+          - task: TerraformInstaller@2
+            inputs:
+              terraformVersion: 'latest'
+
+      - job: sca_job 
+        displayName: Static Code Analysis Tool
+        steps:
+          - task: tfsec@1
+            inputs:
+              version: 'v1.26.0'
+              dir: '$(System.DefaultWorkingDirectory)'
+
+  - stage: init_and_plan
+    displayName: Terraform Init and Plan
+    jobs:
+      - job: init_plan_job
+        displayName: Init and Plan Job
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Init"
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/${{ parameters.environment }}_Env'
+              backendServiceArm: '${{ parameters.serviceConnection }}'
+              backendAzureRmResourceGroupName: '${{ parameters.backendResourceGroup }}'
+              backendAzureRmStorageAccountName: '${{ parameters.backendStorageAccount }}'
+              backendAzureRmContainerName: '${{ parameters.backendContainer }}'
+              backendAzureRmKey: '${{ parameters.backendKey }}'
+
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/${{ parameters.environment }}_Env'
+              environmentServiceNameAzureRM: '${{ parameters.serviceConnection }}'
+
+  - stage: manual_validation_plan_and_apply
+    displayName: Manual Validation and Apply
+    jobs:
+      - job: manual_validation
+        displayName: Manual Validation
+        pool: server
+        steps:
+          - task: ManualValidation@1
+            inputs:
+              notifyUsers: 'er.ramkrishnamishra@gmail.com'
+              approvers: 'er.ramkrishnamishra@gmail.com'
+              
+      - job: plan_apply_job
+        displayName: Plan and Apply Job
+        steps: 
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Plan"
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/${{ parameters.environment }}_Env'
+              environmentServiceNameAzureRM: '${{ parameters.serviceConnection }}'
+
+          - task: TerraformTaskV4@4
+            displayName: "Terraform Apply"
+            inputs:
+              provider: 'azurerm'
+              command: 'apply'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/${{ parameters.environment }}_Env'
+              environmentServiceNameAzureRM: '${{ parameters.serviceConnection }}'

@@ -1,0 +1,52 @@
+WHAT TO ASK AT THE END OF THE INTERVIEW TO THE MANAGER OR INTERVIEWER 
+
+- Ask about project 
+= I would like to know about the project, if possible please share the client name
+= May I know about the project ?
+= Is it an onshore client or offshore client?
+
+- Ask about team 
+= What would be the team size?
+= is this an invidual role or an opportunity to work with the team?
+= What is the bandwidth of the team?
+= What is the team size? 
+= How is the work culture in the team or organization? 
+
+- Ask about nature of the project/domain
+= I would like to know the nature of business of the client
+= What tools are bring used in the project?
+= What is the Domain of the project?
+= Is the role aligned with Devops team or Management team?
+
+- Responsibilities and expectations from a candidate 
+= If I get selected, what will be expected from me? (What are your expectations from a candidate for this position?)
+= What will be the key strength in a candidate you are looking for?
+= My roles in that project./ What would be the roles and responsibilities  for this role? 
+= What are your expected skills for this position ?
+= Is there any certification required?
+= Once the position is filled, how soon a candidate will receive the asset and credentials? 
+= What are your expectation in handson experience with certain tools? 
+= What would be the day to day activities for the position?
+= What type or kind of tools are being used in the project?
+
+
+QUESTIONS TO BE ASKED TO THE HR
+- What is the notice period of this organization?
+- How many rounds would be there and with whom? 
+- What will the shift timings?
+- Is it a contract to hire position or fulltime permanent role?
+- If this position is contract to hire, what will be the duration of the contract?
+- Will there be any relocation support or reimbursment? 
+- What will be my job location? 
+- Is it hybrid or onsite or remote? 
+- Can you share details about the organization or tell me more about the organization?
+
+QUESTIONS TO BE ASKED IN FINAL HR ROUND (SALARY DISCUSSION)
+- What is the notice period of this organization?
+- Is there any annual bonus?
+- Is there any signing bonus?
+- What are the appraisal cycle in the organization? What are the KPI matrix for that?
+- What will be the fixed and variable in the pay?
+- What are the additional benefits apart from CTC? 
+- What are the leave criteria and promotional bandwidith? 
+- What are the medcial benefits or what are the medical perks offered by the organization?

@@ -1,0 +1,12 @@
+what are the monitoring tool you used and how do you use it?
+types of load balancer and difference between them?
+tell me about disaster recovery and how will you make the infrastructure highly available.
+what are terraform provider?
+how do you manage state file?
+how you manage secrets in terraform?
+have you worked on Grafana and Prometheus and how it works?
+write a terraform code for vm
+do you know any shell scripting - powershell / python?
+can you tell me about any networking issues?
+have you worked on Linux or windows machine?
+how you can do monitoring on Linux machine?

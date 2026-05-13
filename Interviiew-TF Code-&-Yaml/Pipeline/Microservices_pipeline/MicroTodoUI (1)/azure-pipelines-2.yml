@@ -1,0 +1,33 @@
+trigger: none
+pool: dockervm-agent-pool
+stages:
+  - stage: buildimage
+    displayName: buld image 
+    jobs:
+    - job: 
+      steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'acr-svc-coonection'
+          repository: 'todoui'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: |
+           $(Build.BuildId)
+           latest
+          
+  - stage: manifestdeploy
+    displayName:  manifest deploy
+    jobs: 
+    - job: 
+      steps:
+      - task: KubernetesManifest@1
+        inputs:
+          action: 'deploy'
+          connectionType: 'kubernetesServiceConnection'
+          kubernetesServiceConnection: 'k8s-svc-connection'
+          namespace: 'default'
+          manifests: 'manifest-todoui/*.yaml'
+          containers: 'devramacr3.azurecr.io/todoui:$(Build.BuildId)'
+
+        

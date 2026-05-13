@@ -1,0 +1,83 @@
+parameters:
+- name: environment
+
+
+variables:
+  WORK_DIR : '$(System.DefaultWorkingDirectory)/rg_code'
+
+stages:
+- stage : TerraformInitandPlan
+  displayName: Terraform Init and Plan
+  jobs:
+  - job: tfsec
+    displayName: tfsec
+    steps: 
+    - task: tfsec@1
+      inputs:
+        version: 'v1.26.0'
+        dir: '$(WORK_DIR)'
+
+  - job: TerraformInit
+    displayName: Terraform Init
+    steps:
+    - task: TerraformTaskV4@4
+      displayName: Terraform Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(WORK_DIR)'
+        backendServiceArm: 'piku-wif'
+        backendAzureRmResourceGroupName: 'piku-rg'
+        backendAzureRmStorageAccountName: 'pikustorage'
+        backendAzureRmContainerName: 'cont'
+        backendAzureRmKey: '${{ parameters.environment }}.terraform.tfstate'
+
+    - task: TerraformTaskV4@4
+      displayName: Terraform Plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(WORK_DIR)'
+        commandOptions: '--var-file=${{ parameters.environment }}.terraform.tfvars'
+        environmentServiceNameAzureRM: 'piku-wif'
+
+- stage: TerraformInitandApply
+  displayName: Terraform Init and Apply
+  condition : and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
+  jobs: 
+  - job: validation
+    displayName: Terraform validation 
+    pool: server
+    steps:
+    - task: ManualValidation@1
+      displayName: validation
+      inputs:
+        timeoutsInMinutes : 5
+        notifyUsers: 'xyz.com'
+        allowApproversToApproveTheirOwnRuns: true
+        instructions: 'plz approve'
+
+  - job: TerraformInit
+    displayName : Terraform init & apply 
+    dependsOn: validation
+    steps:
+    - task: TerraformTaskV4@4
+      displayName: Terraform Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(WORK_DIR)'
+        backendServiceArm: 'piku-wif'
+        backendAzureRmResourceGroupName: 'piku-rg'
+        backendAzureRmStorageAccountName: 'pikustorage'
+        backendAzureRmContainerName: 'cont'
+        backendAzureRmKey: '${{ parameters.environment }}.terraform.tfstate'
+      
+    - task: TerraformTaskV4@4
+      displayName: Terraform Apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(WORK_DIR)'
+        commandOptions: '--var-file=${{ parameters.environment }}.terraform.tfvars'
+        environmentServiceNameAzureRM: 'piku-wif'

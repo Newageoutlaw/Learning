@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: deletetask
+  labels:
+    name: deletetask
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+  - host: delete.akservices.tech
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: deletetask
+            port: 
+              number: 80

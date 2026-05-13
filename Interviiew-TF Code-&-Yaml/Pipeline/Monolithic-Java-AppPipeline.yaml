@@ -1,0 +1,40 @@
+trigger: none
+pool: todoapp-agent-pool
+stages:
+  - stage: build
+    displayName: Build Java App
+    jobs:
+    - job: buildjob
+      displayName: Build Job
+      steps:
+      - task: Maven@3
+        inputs:
+          mavenVersionOption: 'default'
+          mavenPomFile: '$(System.DefaultWorkingDirectory)/pom.xml'
+          goals: 'clean install'
+          options: '-DskipTests=true'
+      
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)'
+          artifact: 'java_artifact'
+          publishLocation: 'pipeline'
+
+  - stage: deployment
+    displayName: Application Deployment
+    jobs:
+    - job: appdeployjob
+      steps: 
+      - task: DownloadBuildArtifacts@1
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'java_artifact'
+          downloadPath: '$(System.DefaultWorkingDirectory)/javafolder'
+
+      - task: SSH@0
+        inputs:
+          sshEndpoint: 'java-service_connection'
+          runOptions: 'commands'
+          commands: 'scp -r $(System.DefaultWorkingDirectory)/javafolder/* user@192.168.1.13:/root/javaapp/'
+          readyTimeout: '20000'

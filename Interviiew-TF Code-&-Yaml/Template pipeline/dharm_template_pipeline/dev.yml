@@ -1,0 +1,12 @@
+variables:
+  WORK_DIR : '$(System.DefaultWorkingDirectory)/rg_code'
+
+
+trigger: 
+- main
+pool: pikuagent
+
+stages:
+- template : template/tf.template.yml
+  parameters: 
+    environment : dev

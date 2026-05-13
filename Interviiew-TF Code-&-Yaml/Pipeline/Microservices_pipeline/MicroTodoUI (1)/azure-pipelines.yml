@@ -1,0 +1,35 @@
+
+trigger: none
+pool: dockervm-agent-pool
+stages:
+  - stage: imagebuild
+    displayName: build image
+    jobs:
+    - job: ssh
+      steps:
+      - task: DockerInstaller@0
+        inputs:
+          dockerVersion: '17.09.0-ce'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'acr-svc-coonection'
+          repository: 'ram-repository'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+  - stage: deployment 
+    displayName: deployment
+    pool: todoapp-agent-pool
+    jobs: 
+    - job: deployjob
+      displayName: deploy nginx server 
+      steps:
+      - task: Kubernetes@1
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          kubernetesServiceEndpoint: 'k8s-svc-connection'
+          namespace: 'default'
+          command: 'apply'
+          useConfigurationFile: true
+          configuration: '$(Build.SourcesDirectory)/todoapp_manifest/todoapp-frontend/todouideploy.yaml'
+          secretType: 'dockerRegistry'
+          containerRegistryType: 'Azure Container Registry'

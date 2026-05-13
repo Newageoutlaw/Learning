@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gettask
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gettask
+  template:
+    metadata:
+      labels:
+        app: gettask
+    spec:
+      containers:
+      - name: gettask
+        image: devramacr1.azurecr.io/ram-repository/gettasktodo:v1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: CONNECTION_STRING
+          value: "Driver={ODBC Driver 17 for SQL Server};Server=tcp:devtododbsrvram1.database.windows.net,1433;Database=todoappdb1;Uid=devopsadmin;Pwd=P@ssw01rd@123;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"

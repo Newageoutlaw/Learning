@@ -1,0 +1,11 @@
+trigger: none
+pool: akspool
+
+extends:
+  template: terraform-template.yml
+  parameters:
+    backendResourceGroup: 'prod_rg'
+    backendStorageAccount: 'prodstorageaccount'
+    backendContainer: 'prod-container'
+    backendKey: 'prod-terraform.tf'
+    serviceConnection: 'prod-connection'
